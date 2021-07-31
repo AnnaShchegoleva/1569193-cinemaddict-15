@@ -5,6 +5,6 @@ const render = (container, template, place) => {
 };
 
 const siteMainElement = document.querySelector('.header');
-const siteHeaderElement = siteMainElement.querySelector('.header__profile');
+const siteHeaderElement = siteMainElement.querySelector('.header__logo');
 
-render(siteHeaderElement, createUserRateTemplate(), 'beforeend');
+render(siteHeaderElement, createUserRateTemplate(), 'afterend');
