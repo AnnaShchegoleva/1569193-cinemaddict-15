@@ -8,10 +8,10 @@ import {createButtonShowTemplate} from './view/show-more.js';
 import {createTopRatedTemplate} from './view/top-tated-movies.js';
 import {createMostCommentTemplate} from './view/most-commented.js';
 import {createNumberFilmTemplate } from './view/amount-films.js';
+import {createPopupTemplate} from './view/popup.js';
 
-const FILM_CARD_COUNT = 4;
-const TOP_RATED_COUNT = 1;
-const MOST_COMMENTED_COUNT = 1;
+const FILM_CARDS_COUNT = 4;
+const EXTRA_FILMS_COUNT = 2;
 
 const render = (container, template, place) => {
   container.insertAdjacentHTML(place, template);
@@ -23,54 +23,48 @@ const siteMainElement = document.querySelector('.main');
 const siteFooter = document.querySelector('.footer');
 const siteFooterElement = siteFooter.querySelector('.footer__statistics');
 
-render (siteHeaderElement, createUserRateTemplate(), 'afterend');
-render (siteMainElement, createMenuFilterTemplate(), 'afterbegin'); //Отрисовка компонента фильтров и статистики (меню)
+render(siteHeaderElement, createUserRateTemplate(), 'afterend');
+render(siteMainElement, createMenuFilterTemplate(), 'afterbegin');
 
-//Добавление сортировки фильмов
-const sortFilm = siteMainElement.querySelector('.main-navigation');
-render (sortFilm, createSortTemplate(), 'afterend');
+const navigationElement = siteMainElement.querySelector('.main-navigation');
+render(navigationElement, createSortTemplate(), 'afterend');
 
-//Cписок фильмов/ Контайнер
-const MainContainer = siteMainElement.querySelector('.sort');
-render (MainContainer, createFilmContainerTemplate(), 'afterend');
+const mainContainerAfterSort = siteMainElement.querySelector('.sort');
+render(mainContainerAfterSort, createFilmContainerTemplate(), 'afterend');
 
-//Карточка фильма
-const filmCard = siteMainElement.querySelector('.films-list__container');
-render (filmCard, createCardFilmTemplate(), 'beforeend');
+const filmCardIntoMainContainer = siteMainElement.querySelector('.films-list__container');
+render(filmCardIntoMainContainer, createCardFilmTemplate(), 'beforeend');
 
-for (let i=0; i < FILM_CARD_COUNT; i++) {
-  render (filmCard, createCardFilmTemplate(), 'beforeend');
+for (let i = 0; i < FILM_CARDS_COUNT; i++) {
+  render(filmCardIntoMainContainer, createCardFilmTemplate(), 'beforeend');
 }
 
-//Кнопка Show more на всю стр
-const buttonShowMore = siteMainElement.querySelector('.films-list');
-render (buttonShowMore, createButtonShowTemplate(), 'beforeend');
+const buttonShowMoreAfterMainContainer = filmCardIntoMainContainer;
+render(buttonShowMoreAfterMainContainer, createButtonShowTemplate(), 'afterend');
 
-//Фильмы с высоким рейтингом - контейнер
+render(siteFooterElement, createNumberFilmTemplate(), 'beforeend');
+
 const containerTopRated = siteMainElement.querySelector('.films');
-render (containerTopRated, createTopRatedTemplate(), 'beforeend');
+render(containerTopRated, createTopRatedTemplate(), 'beforeend');
 
-//Карта Фильма в топ по рейтингу
-const filmCardTop = containerTopRated.querySelector('.films-list--extra');
-const filmCardTopElement = filmCardTop.querySelector('.films-list__container');
-render (filmCardTopElement, createCardFilmTemplate(), 'beforeend');
-
-for (let i=0; i < TOP_RATED_COUNT; i++) {
-  render (filmCardTopElement, createCardFilmTemplate(), 'beforeend');
-}
-
-//Наиболее комментируемые - контейнер
 const containerMostComment = siteMainElement.querySelector('.films');
-render (containerMostComment, createMostCommentTemplate(), 'beforeend');
+render(containerMostComment, createMostCommentTemplate(), 'beforeend');
 
-//Карта Фильма в Наиболее комментируемых ф
-const filmCardMostComm = containerMostComment.querySelector('.films-list--extra');
-const filmCardMostCommElement = filmCardMostComm.querySelector('.films-list__container');
-render (filmCardMostCommElement, createCardFilmTemplate(), 'beforeend');
+const extraContainers = document.querySelectorAll('.films-list--extra');
+const topRatedElement = extraContainers[0];
+const mostCommentedElement = extraContainers[1];
 
-for (let i=0; i < MOST_COMMENTED_COUNT; i++) {
-  render (filmCardTopElement, createCardFilmTemplate(), 'beforeend');
+const topRatedFilmsContainer = topRatedElement.querySelector('.films-list__container');
+for (let i = 0; i < EXTRA_FILMS_COUNT; i++) {
+  render(topRatedFilmsContainer, createCardFilmTemplate(), 'beforeend');
 }
 
-//Добавление количества фильмов в футер
-render (siteFooterElement, createNumberFilmTemplate(), 'beforeend');
+const mostCommentedFilmsContainer = mostCommentedElement.querySelector('.films-list__container');
+for (let i = 0; i < EXTRA_FILMS_COUNT; i++) {
+  render(mostCommentedFilmsContainer, createCardFilmTemplate(), 'beforeend');
+}
+
+let popup = siteFooter;
+render(popup, createPopupTemplate(), 'afterend');
+
+popup = document.querySelector('.film-details').classList.add('visually-hidden');
