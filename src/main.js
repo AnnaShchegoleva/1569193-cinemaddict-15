@@ -59,7 +59,6 @@ for (let i=0; i < TOP_RATED_COUNT; i++) {
   render (filmCardTopElement, createCardFilmTemplate(), 'beforeend');
 }
 
-//const MOST_COMMENTED_COUNT = 1;
 //Наиболее комментируемые - контейнер
 const containerMostComment = siteMainElement.querySelector('.films');
 render (containerMostComment, createMostCommentTemplate(), 'beforeend');
@@ -67,7 +66,11 @@ render (containerMostComment, createMostCommentTemplate(), 'beforeend');
 //Карта Фильма в Наиболее комментируемых ф
 const filmCardMostComm = containerMostComment.querySelector('.films-list--extra');
 const filmCardMostCommElement = filmCardMostComm.querySelector('.films-list__container');
-render (filmCardMostCommElement, createCardFilmTemplate(), 'afterbegin');
+render (filmCardMostCommElement, createCardFilmTemplate(), 'beforeend');
+
+for (let i=0; i < MOST_COMMENTED_COUNT; i++) {
+  render (filmCardTopElement, createCardFilmTemplate(), 'beforeend');
+}
 
 //Добавление количества фильмов в футер
 render (siteFooterElement, createNumberFilmTemplate(), 'beforeend');
