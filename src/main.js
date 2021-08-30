@@ -9,6 +9,10 @@ import {createTopRatedTemplate} from './view/top-tated-movies.js';
 import {createMostCommentTemplate} from './view/most-commented.js';
 import {createNumberFilmTemplate } from './view/amount-films.js';
 import {createPopupTemplate} from './view/popup.js';
+import {generateFilms} from './mock/film';
+
+// eslint-disable-next-line no-console
+console.log(generateFilms);
 
 const FILM_CARDS_COUNT = 4;
 const EXTRA_FILMS_COUNT = 2;
